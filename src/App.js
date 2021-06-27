@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import WithPacker from "./withPacker";
+import WithoutPacker from "./withoutPacker";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center" }}>
+      <div>
+        <h1>With Packer</h1>
+        <WithPacker />
+      </div>
+      <div>
+        <h1>Without Packer</h1>
+        <WithoutPacker />
+      </div>
     </div>
   );
 }
