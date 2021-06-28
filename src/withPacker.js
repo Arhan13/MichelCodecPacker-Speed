@@ -5,9 +5,9 @@ import { MichelCodecPacker } from "@taquito/taquito";
 function WithPacker() {
   const [timeDiff, setTimeDiff] = useState(0);
   const fetchFarmBalance = async (
-    connectNetwork = "https://mainnet-tezos.giganode.io/",
-    addressOfUser = "tz1h4H8ic8LEdW8RF45cNJXBgPx7ZrYkFE4S",
-    tokenContractAddress = "KT1BfQLAsQNX8BjSBzgjTLx3GTd3qhwLoWNz"
+    connectNetwork,
+    addressOfUser,
+    tokenContractAddress
   ) => {
     try {
       //Contract Call
@@ -15,6 +15,7 @@ function WithPacker() {
       Tezos.setPackerProvider(new MichelCodecPacker());
       Tezos.setProvider(connectNetwork);
       const contract = await Tezos.contract.at(tokenContractAddress);
+      console.log(contract);
       const storage = await contract.storage();
       console.log(storage, "Storage");
       const userDetails = await storage.balances.get(addressOfUser);
@@ -37,14 +38,22 @@ function WithPacker() {
     }
   };
 
-  const BalanceFetcher = async (addressOfUser) => {
-    //const connectedNetwork = "https://mainnet-tezos.giganode.io/";
-    //const addressOfUser = "tz1h4H8ic8LEdW8RF45cNJXBgPx7ZrYkFE4S";
-    //const tokenContractAddress = "KT1BfQLAsQNX8BjSBzgjTLx3GTd3qhwLoWNz";
+  const BalanceFetcher = async () => {
+    const connectedNetwork = "https://mainnet-tezos.giganode.io/";
+    //let addressOfUser = "tz1h4H8ic8LEdW8RF45cNJXBgPx7ZrYkFE4S";
+    let addressOfUser = "tz1SX5jmPpdWvJrMjqG5LiYN75Wq9Tdrp6Dc";
+    const tokenContractAddress = "KT1BfQLAsQNX8BjSBzgjTLx3GTd3qhwLoWNz";
 
     try {
       const promises = [];
-      promises.push(fetchFarmBalance());
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1e5FGbCRqYmKPr5BEz6dqpytKMjGt3HheU";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1eQvSaRojZxZKRqzDJvJCKDNZji2Mzs16e";
       const response = await Promise.all(promises);
       return {
         success: true,
@@ -59,7 +68,6 @@ function WithPacker() {
   };
 
   const getBalanceVal = async () => {
-    //const addressOfUser = "tz1h4H8ic8LEdW8RF45cNJXBgPx7ZrYkFE4S";
     var d = new Date();
     var startTime = d.getTime();
     const BALANCE_OF_FARM = await BalanceFetcher();
@@ -73,7 +81,7 @@ function WithPacker() {
 
   return (
     <div>
-      <button onClick={getBalanceVal}>Without Packer</button>
+      <button onClick={getBalanceVal}>With Packer</button>
       <h2>{timeDiff} ms</h2>
     </div>
   );
