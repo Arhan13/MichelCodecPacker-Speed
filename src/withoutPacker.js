@@ -3,6 +3,8 @@ import { TezosToolkit } from "@taquito/taquito";
 
 function WithoutPacker() {
   const [timeDiff, setTimeDiff] = useState(0);
+  const connectedNetwork = "https://mainnet-tezos.giganode.io/";
+  const Tezos = new TezosToolkit(connectedNetwork);
   const fetchFarmBalance = async (
     connectNetwork,
     addressOfUser,
@@ -10,8 +12,6 @@ function WithoutPacker() {
   ) => {
     try {
       //Contract Call
-      const Tezos = new TezosToolkit(connectNetwork);
-      Tezos.setProvider(connectNetwork);
       const contract = await Tezos.contract.at(tokenContractAddress);
       console.log(contract);
       const storage = await contract.storage();
@@ -51,6 +51,42 @@ function WithoutPacker() {
         fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
       );
       addressOfUser = "tz1eQvSaRojZxZKRqzDJvJCKDNZji2Mzs16e";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1RmXjKJJqzRehdMz1DWhcRQYbhiaLYtrRN";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1cD31qUc7Vz5g3ThFb3yvUkcj2e3wcetsB";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1hxp6TZfZ8bApX8dZ3fyn4wz6bd2Cmiy84";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1aag4xQfh1FKAupcMQeQMHtYPfejzeKkW9";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+
+      addressOfUser = "tz1eeq85Mq5Ypi19RsCWgc3QtzHKE4NnkjKR";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1NpEydtnL7777kMufqh4ujMjJm1fBaN42C";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1Q1LWn8wCK77L4xetjbH3Ar7sDaSANezZx";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
+      addressOfUser = "tz1VJ8sFCaqqkYVwPVUs8V3yxg7WsAz8M8RM";
+      promises.push(
+        fetchFarmBalance(connectedNetwork, addressOfUser, tokenContractAddress)
+      );
       const response = await Promise.all(promises);
       return {
         success: true,
